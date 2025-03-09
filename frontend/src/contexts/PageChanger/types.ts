@@ -1,0 +1,1 @@
+export type TPageChanger = {changer:(inc: number) => void};
