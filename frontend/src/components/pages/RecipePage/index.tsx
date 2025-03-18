@@ -1,5 +1,6 @@
 import { JSX, lazy, Suspense } from 'react';
 import { ActionFunctionArgs, LoaderFunctionArgs, useLoaderData } from 'react-router';
+import { Loader } from '../../common/Loader/Loader';
 
 
 async function loader({ /*params, request*/ }: LoaderFunctionArgs) {
@@ -29,7 +30,7 @@ const Page = (
 ) => {
 	//const data = useLoaderData<loaderResponse>();
 	return (
-		<Suspense fallback={<p>Loading...</p>}>
+		<Suspense fallback={<Loader/>}>
 			<LazyPage  {...props}  />
 		</Suspense>
 	)

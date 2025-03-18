@@ -1,4 +1,7 @@
 import { FunctionComponent, PropsWithChildren, SyntheticEvent } from "react";
+import { TAnchorHref } from "../Anchor/types";
+import {LinkProps} from 'react-router-dom';
+
 
 export enum ActionVariant {
   main = 'main',
@@ -19,8 +22,9 @@ export type ActionProps = PropsWithChildren<{
 	variant?: ActionVariant | keyof typeof ActionVariant;
 	onClick?: (e?:SyntheticEvent) => void;
 	className?: string;
-	href?: string,
+	href?: TAnchorHref,
 	name?: string,
   disabled?: boolean;
-  changeInc?: number;
+  state?: any;
+  change?: 'next'|'previous'|'modal'
 }>;

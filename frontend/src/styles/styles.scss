@@ -4,3 +4,11 @@ body.page {
   height: 100%;
   background-color: aqua;
 }
+
+#modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  block-size: 100%;
+  inline-size: 100%;
+}

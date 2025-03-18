@@ -5,8 +5,13 @@ import styles from './Action.module.scss';
 import { Anchor } from '../Anchor/Anchor';
 import { PageChangerContext } from '../../../contexts/PageChanger/PageChangerContext';
 
-const withAction = (actionHocProps: ActionProps) => {
+import {
+  useLocation,
+} from 'react-router-dom';
+
+export const withAction = (actionHocProps: ActionProps) => {
 	return function Action(actionProps: ActionProps): ReactElement {
+    const location = useLocation()
 		let {
 			tag,
 			type,
@@ -15,11 +20,12 @@ const withAction = (actionHocProps: ActionProps) => {
 			href,
 			disabled,
 			children,
-			changeInc,
+      change,
+      state,
+      onClick,
 			...other
 		} = Object.assign({}, { ...actionHocProps }, { ...actionProps });
 		tag = tag || 'button';
-		changeInc = changeInc === undefined ? +1 : changeInc;
 		const Tag = tag === 'a' ? Anchor : tag;
 		if (tag === 'button') {
 			href = undefined;
@@ -27,18 +33,6 @@ const withAction = (actionHocProps: ActionProps) => {
 		} else {
 			type = undefined;
 		}
-
-		const { changer } = useContext(PageChangerContext);
-
-		const onClick = useCallback(
-			(e: React.SyntheticEvent) => {
-        other.onClick?.(e);
-				if (changeInc !== 0) {
-					changer(changeInc);
-				}
-			},
-			[other.onClick, changeInc]
-		);
 
 		return (
 			<Tag
@@ -52,37 +46,10 @@ const withAction = (actionHocProps: ActionProps) => {
 				href={href}
 				onClick={onClick}
 				data-testid="Action"
+        state={{backgound:location.pathname}}
 			>
 				{children}
 			</Tag>
 		);
 	};
 };
-
-export const Action = withAction({});
-
-export const Link = withAction({
-	tag: 'a',
-	variant: ActionVariant.link,
-	changeInc: +1,
-});
-
-export const Button = withAction({
-	tag: 'button',
-	variant: ActionVariant.main,
-	changeInc: +1,
-});
-
-export const SubmitButton = withAction({
-	tag: 'button',
-	variant: ActionVariant.main,
-	type: ButtonType.submit,
-	changeInc: +1,
-});
-
-export const ResetButton = withAction({
-	tag: 'button',
-	variant: ActionVariant.main,
-	type: ButtonType.reset,
-	changeInc: +1,
-});
