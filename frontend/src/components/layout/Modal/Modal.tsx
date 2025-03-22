@@ -2,12 +2,8 @@ import clsx from 'clsx';
 import { PropsWithChildren, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import styles from './Modal.module.scss';
+import { TModalProps } from './types';
 
-export type ModalProps = PropsWithChildren<{
-	title?: string;
-	onClose?: () => void;
-	className?: string;
-}>;
 
 const modalRoot = document.getElementById('modal');
 
@@ -16,7 +12,7 @@ export function Modal({
 	children,
 	title,
 	onClose,
-}: PropsWithChildren<ModalProps>) {
+}: PropsWithChildren<TModalProps>) {
 	const overlayRef = useRef<HTMLDivElement>(null);
 	useEffect(() => {
 		const overlayElement = overlayRef.current;

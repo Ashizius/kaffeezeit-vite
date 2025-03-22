@@ -9,10 +9,15 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "gen": "npx generate-react-cli component",
+    "gen:common": "npx generate-react-cli component --path 'src/components/common'",
+    "gen:layout": "npx generate-react-cli component --path 'src/components/layout'",    
+    "gen:page": "npx generate-react-cli component --type=page"
   },
   "dependencies": {
     "clsx": "^2.1.1",
+    "generate-react-cli": "^8.4.9",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.3.0"

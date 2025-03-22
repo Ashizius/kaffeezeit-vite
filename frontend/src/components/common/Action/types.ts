@@ -8,22 +8,22 @@ export enum ActionVariant {
   link='link',
 }
 
-export enum ButtonType {
+export enum TButtonType {
   button= 'button',
   submit = 'submit',
   reset = 'reset'
 }
 
-export type ActionTag = keyof Pick<React.JSX.IntrinsicElements, "a" | "button"> | FunctionComponent;
+export type TActionTag = keyof Pick<React.JSX.IntrinsicElements, "a" | "button"> | FunctionComponent;
 
-export type ActionProps = PropsWithChildren<{
-  tag?: ActionTag;
-	type?: ButtonType | keyof typeof ButtonType;
-	variant?: ActionVariant | keyof typeof ActionVariant;
-	onClick?: (e?:SyntheticEvent) => void;
-	className?: string;
-	href?: TAnchorHref,
-	name?: string,
+export type TActionProps = PropsWithChildren<{
+  tag?: TActionTag;
+  type?: TButtonType | keyof typeof TButtonType;
+  variant?: ActionVariant | keyof typeof ActionVariant;
+  onClick?: (e?:SyntheticEvent) => void;
+  className?: string;
+  href?: TAnchorHref,
+  name?: string,
   disabled?: boolean;
   state?: any;
   change?: 'next'|'previous'|'modal'

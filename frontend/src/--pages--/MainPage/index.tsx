@@ -1,10 +1,9 @@
 import { JSX, lazy, Suspense } from 'react';
 import { ActionFunctionArgs, LoaderFunctionArgs, useLoaderData } from 'react-router';
-import { Loader } from '../../common/Loader/Loader';
+import { Loader } from '../../components/common/Loader/Loader';
 
 
 async function loader({ /*params, request*/ }: LoaderFunctionArgs) {
-  console.log('aaa');
 	return Promise.resolve({
 		result: 'OK'
 	});

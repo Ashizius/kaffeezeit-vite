@@ -1,6 +1,6 @@
 import { JSX, lazy, Suspense } from 'react';
 import { ActionFunctionArgs, LoaderFunctionArgs, useLoaderData } from 'react-router';
-import { Loader } from '../../common/Loader/Loader';
+import { Loader } from '../../src/components/common/Loader';
 
 
 async function loader({ /*params, request*/ }: LoaderFunctionArgs) {
@@ -19,19 +19,19 @@ async function action({ /*params, request*/ }: ActionFunctionArgs) {
 export type loaderResponse = Awaited<ReturnType<typeof loader>>;
 
 
-const LazyPage = lazy(() =>
+const LazyRecipePage = lazy(() =>
 	import('./RecipePage').then(module => ({
-		default: module.RecipePage
+		default: module.MainPage
 	}))
 );
 
-const Page = (
+const RecipePage = (
 	props: JSX.IntrinsicAttributes & { children?: React.ReactNode }
 ) => {
-	//const data = useLoaderData<loaderResponse>();
+	const data = useLoaderData<loaderResponse>();
 	return (
 		<Suspense fallback={<Loader/>}>
-			<LazyPage  {...props}  />
+			<LazyRecipePage  {...props}  />
 		</Suspense>
 	)
 };
@@ -39,6 +39,6 @@ const Page = (
 export default {
 	loader,
 	action,
-	element: <Page />
+	element: <RecipePage />
 };
 
