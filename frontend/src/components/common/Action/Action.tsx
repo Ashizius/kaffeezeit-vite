@@ -33,7 +33,11 @@ export const withAction = (actionHocProps: ActionProps) => {
 		} else {
 			type = undefined;
 		}
-
+      const {changer} = useContext(PageChangerContext);
+    const action=(e?: React.SyntheticEvent)=>{
+      changer();
+      onClick?.(e);
+    }
 		return (
 			<Tag
 				className={clsx(styles.action, className, {
@@ -44,7 +48,7 @@ export const withAction = (actionHocProps: ActionProps) => {
 				{...other}
 				type={type}
 				href={href}
-				onClick={onClick}
+				onClick={action}
 				data-testid="Action"
         state={{backgound:location.pathname}}
 			>

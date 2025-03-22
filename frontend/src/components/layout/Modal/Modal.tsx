@@ -41,7 +41,7 @@ export function Modal({
 	}, [onClose, overlayRef]);
 
 	return ReactDOM.createPortal(
-		<div ref={overlayRef} className={clsx(styles.overlay)}>
+		<div ref={overlayRef} className={clsx(styles.overlay, styles.hidden)}>
 			<div className={clsx(styles.container, className)} data-testid="Modal">
 				<h3 className={clsx(styles.title)}>{title}</h3>
 				<button

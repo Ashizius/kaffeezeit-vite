@@ -1,1 +1,1 @@
-export type TPageChanger = {changer:(inc: number) => void};
+export type TPageChanger = {changer:() => void};

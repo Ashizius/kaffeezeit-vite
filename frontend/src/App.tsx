@@ -17,6 +17,7 @@ import { routes } from './components/pages/routesObject';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { PageChangerContextProvider } from './contexts/PageChanger/PageChangerProvider';
 import { FormContextProvider } from './components/common/Form/FormContext';
+import { usePreviousClone } from './components/layout/Book/hooks';
 
 function AppLayout() {
 	const location = useLocation();
@@ -29,11 +30,12 @@ function AppLayout() {
 		},
 		[setPageNumber]
 	);
+    const { current, old, catchComponent } = usePreviousClone(<Outlet />, []);
 	return (
 		<>
-			<PageChangerContextProvider value={{ changer: changePage }}>
-				<Book pageNumber={pageNumber} background={null}>
-					<Outlet />
+			<PageChangerContextProvider value={{ changer:catchComponent  }}>
+				<Book pageNumber={pageNumber} background={old}>
+					{current}
 				</Book>
 			</PageChangerContextProvider>
 		</>
