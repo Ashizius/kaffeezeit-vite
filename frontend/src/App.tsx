@@ -15,25 +15,23 @@ import {
 import { AnchorContextProvider } from './components/common/Anchor/AnchorContext';
 import { routes } from './pages/routes';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { PageChangerContextProvider } from './contexts/PageChanger/PageChangerProvider';
 import { FormContextProvider } from './components/common/Form/FormContext';
+import { Header } from './stories/Header';
+import { Footer } from './components/layouts/Footer';
+import { MainLayout } from './components/layouts/MainLayout';
 //import { usePreviousClone } from './components/layout/Book/hooks';
 
 function AppLayout() {
 	const location = useLocation();
-	const [pageNumber, setPageNumber] = useState(1);
 	const backgoundLocation = location.state?.backgound;
 	console.log(backgoundLocation);
-	const changePage = useCallback(
-		(inc: number) => {
-			setPageNumber((page) => page + inc);
-		},
-		[setPageNumber]
-	);
-    //const { current, old, catchComponent } = usePreviousClone(<Outlet />, []);
+
+	//const { current, old, catchComponent } = usePreviousClone(<Outlet />, []);
 	return (
 		<>
-      <Outlet></Outlet>
+			<MainLayout>
+				<Outlet />
+			</MainLayout>
 		</>
 	);
 }

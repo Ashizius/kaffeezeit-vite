@@ -2,9 +2,25 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, within } from '@storybook/test';
 
 import { Form } from './Form';
-import type {TFormProps} from './types.ts';
+import type { TFormProps } from './types.ts';
+import { Field } from './Field/Field.tsx';
+import { InputText, InputEmail, InputPassword } from './Input/index.tsx';
 
-const args:TFormProps = {};
+const children = (
+	<>
+		<Field label="Text">
+			<InputText name="text" />
+		</Field>
+		<Field label="Email">
+			<InputEmail name="email" />
+		</Field>
+		<Field label="Password">
+			<InputPassword name="password" />
+		</Field>
+	</>
+);
+
+const args: TFormProps = {children};
 
 const meta = {
 	title: 'Form/Form',
@@ -12,7 +28,7 @@ const meta = {
 	parameters: {
 		// More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
 		layout: 'centered',
-    args: args
+		args: args,
 	},
 } satisfies Meta<typeof Form>;
 
@@ -20,11 +36,11 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 // More on interaction testing: https://storybook.js.org/docs/writing-tests/interaction-testing
-export const WithStateChanged: Story = {
+export const Default: Story = {
 	play: async ({ canvasElement }) => {
 		const canvas = within(canvasElement);
 		const element = canvas.getByTestId('Form');
 		await expect(element).toBeInTheDocument();
 	},
-  args
+	args,
 };

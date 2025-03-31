@@ -22,9 +22,9 @@ export type TActionProps = PropsWithChildren<{
   variant?: ActionVariant | keyof typeof ActionVariant;
   onClick?: (e?:SyntheticEvent) => void;
   className?: string;
-  href?: TAnchorHref,
+  to?: TAnchorHref,
   name?: string,
   disabled?: boolean;
-  state?: any;
+  state?: object;
   change?: 'next'|'previous'|'modal'
 }>;

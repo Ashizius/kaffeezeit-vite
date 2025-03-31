@@ -1,8 +1,9 @@
 import { InputHTMLAttributes } from "react";
 
-export type TInputProps<T=string> = {
+export type TInputProps<K=string,V=string> = {
 	className?: string;
 	value?: string;
-	onChange?: (value: T) => void;
-} & InputHTMLAttributes<HTMLInputElement>;
+	onChange?: (name:K, value: V) => void;
+  name: K;
+} & Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'>;
 

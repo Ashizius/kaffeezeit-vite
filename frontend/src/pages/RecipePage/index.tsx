@@ -1,6 +1,6 @@
 import { JSX, lazy, Suspense } from 'react';
 import { ActionFunctionArgs, LoaderFunctionArgs, useLoaderData } from 'react-router';
-import { Loader } from '../../src/components/common/Loader';
+import { Loader } from '../../components/common/Loader';
 
 
 async function loader({ /*params, request*/ }: LoaderFunctionArgs) {
@@ -9,10 +9,11 @@ async function loader({ /*params, request*/ }: LoaderFunctionArgs) {
 	});
 }
 
-async function action({ /*params, request*/ }: ActionFunctionArgs) {
-  return Promise.resolve({
-		result: 'OK'
-	});
+async function action({ params, request }: ActionFunctionArgs) {
+	const data = await request.formData();
+	const payload = Object.fromEntries(data.entries()) as object
+	console.log('payload!',payload);
+	return null; // вызов к апи
 	//return null; // вызов к апи
 }
 
@@ -21,7 +22,7 @@ export type loaderResponse = Awaited<ReturnType<typeof loader>>;
 
 const LazyRecipePage = lazy(() =>
 	import('./RecipePage').then(module => ({
-		default: module.MainPage
+		default: module.RecipePage
 	}))
 );
 
@@ -37,7 +38,6 @@ const RecipePage = (
 };
 
 export default {
-	loader,
 	action,
 	element: <RecipePage />
 };

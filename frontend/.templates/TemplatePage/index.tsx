@@ -1,6 +1,7 @@
 import { JSX, lazy, Suspense } from 'react';
-import { ActionFunctionArgs, LoaderFunctionArgs, useLoaderData } from 'react-router';
-import { Loader } from '../../src/components/common/Loader';
+import { ActionFunctionArgs, LoaderFunctionArgs, useActionData, useLoaderData } from 'react-router';
+import { Loader } from '@components/common/Loader';
+import React from 'react';
 
 
 async function loader({ /*params, request*/ }: LoaderFunctionArgs) {
@@ -17,21 +18,22 @@ async function action({ /*params, request*/ }: ActionFunctionArgs) {
 }
 
 export type loaderResponse = Awaited<ReturnType<typeof loader>>;
-
+export type actionResponse = Awaited<ReturnType<typeof action>>;
 
 const LazyTemplateName = lazy(() =>
 	import('./TemplateName').then(module => ({
-		default: module.MainPage
+		default: module.TemplateName
 	}))
 );
 
 const TemplateName = (
 	props: JSX.IntrinsicAttributes & { children?: React.ReactNode }
 ) => {
-	const data = useLoaderData<loaderResponse>();
+	const loaderData = useLoaderData<loaderResponse>();
+  const actionData = useActionData<actionResponse>();
 	return (
 		<Suspense fallback={<Loader/>}>
-			<LazyTemplateName  {...props}  />
+			<LazyTemplateName  {...props} {...loaderData} />
 		</Suspense>
 	)
 };

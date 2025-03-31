@@ -6,7 +6,7 @@ import {
 import { FormProps, NavLink, NavLinkProps, To } from 'react-router-dom';
 import { Link, LinkProps } from 'react-router-dom';
 
-export type TFormProps = FormProps;
+export type TFormProps = FormProps & {isLoading?: boolean; submitError?: string};
 
 export type TFormElement = 'form' | FunctionComponent<TFormProps>;
 

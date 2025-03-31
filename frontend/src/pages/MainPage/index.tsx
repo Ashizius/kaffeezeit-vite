@@ -1,6 +1,7 @@
 import { JSX, lazy, Suspense } from 'react';
 import { ActionFunctionArgs, LoaderFunctionArgs, useLoaderData } from 'react-router';
-import { Loader } from '../../src/components/common/Loader';
+import { Loader } from '../../components/common/Loader';
+
 
 
 async function loader({ /*params, request*/ }: LoaderFunctionArgs) {

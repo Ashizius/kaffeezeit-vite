@@ -5,4 +5,5 @@ export type TModalProps = PropsWithChildren<{
 	title?: string;
 	onClose?: () => void;
 	className?: string;
+  redirect?: string
 }>;

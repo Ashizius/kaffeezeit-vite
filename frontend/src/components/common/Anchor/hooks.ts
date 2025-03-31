@@ -1,33 +1,42 @@
 import { useContext, MouseEvent, useState } from 'react';
-import {
-	TAnchorElement,
-	TAnchorHref,
-	TAnchorHTMLProps
-} from './types';
+import { TAnchorElement, TAnchorHref, TAnchorHTMLProps } from './types';
 import { AnchorContext } from './AnchorContext';
+import { useLocation } from 'react-router-dom';
 
 export function useAnchor(
-	href?: TAnchorHref
+	to?: TAnchorHref, state?:object
 ): [TAnchorElement, TAnchorHTMLProps] {
 	let { LinkElement } = useContext(AnchorContext);
 	LinkElement = LinkElement || 'a';
 	const props: TAnchorHTMLProps = {};
+  const location = useLocation();
 	switch (true) {
-		case typeof href === 'string':
-			props.href = href;
+		case typeof to === 'string':
+			if (LinkElement === 'a') {
+				props.href = to;
+			} else {
+				props.to = to;
+        props.state = {...state,backgroundLocation:location.pathname}
+			}
 			break;
-		case typeof href === 'object':
-			props.href = href.pathname;
-      props.to = href;
+		case typeof to === 'object':
+			if (LinkElement === 'a') {
+				props.href = to.pathname;
+				props.href = undefined;
+			} else {
+				props.to = to;
+        props.state = {...state,backgroundLocation:location.pathname}
+			}
 			break;
-		case typeof href === 'function':
+		case typeof to === 'function':
 			props.href = undefined;
 			props.onClick = (event: MouseEvent<HTMLAnchorElement>) => {
 				event.preventDefault();
 				event.stopPropagation();
-				href(event);
+				to(event);
 			};
 			break;
 	}
+  console.log(props);
 	return [LinkElement, props];
 }

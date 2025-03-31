@@ -9,11 +9,12 @@ import { Link, LinkProps } from 'react-router-dom';
 export type TAnchorHref = ((e: MouseEvent<HTMLAnchorElement>) => void) | To;
 
 export type TAnchorProps = Partial<LinkProps> & {
-	href?: TAnchorHref;
+	to?: TAnchorHref;
 };
 
 export type TAnchorHTMLProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
 	to?: To;
+  state?: object;
 };
 
 export type TAnchorElement = 'a' | FunctionComponent<TAnchorProps>;
