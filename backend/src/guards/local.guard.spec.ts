@@ -1,7 +1,7 @@
-import { LocalGuard } from './local.guard';
+import { LocalAuthGuard } from './local.guard';
 
 describe('LocalGuard', () => {
   it('should be defined', () => {
-    expect(new LocalGuard()).toBeDefined();
+    expect(new LocalAuthGuard()).toBeDefined();
   });
 });

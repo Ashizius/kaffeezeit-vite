@@ -1,5 +1,9 @@
-import { AppConfig } from '../app.config.provider';
+
+import { ConfigService } from '@nestjs/config';
 import mongoose, { Mongoose } from 'mongoose';
+import { AppConfigDatabase, EConfig, Providers } from '../configuration';
+
+
 
 async function connectToMongoose(url:string): Promise<Mongoose> {
   /*try {
@@ -9,12 +13,17 @@ async function connectToMongoose(url:string): Promise<Mongoose> {
   }*/
     return mongoose.connect(url);
 }
-export type DBConnection = Promise<Mongoose>;
+
+
 export const databaseProvider = {
-  provide: 'DATA_SOURCE',
-  useFactory: async (config: AppConfig):DBConnection => {
-    console.log(config.database.url);
-    return connectToMongoose(config.database.url);
+  provide: Providers.dataSource,
+  useFactory: async (config: ConfigService)=> {
+    const url = config.get<AppConfigDatabase>(EConfig.database).url;
+    console.log(config.get<AppConfigDatabase>(EConfig.database).url);
+    //return connectToMongoose(url);
+    return Promise.resolve({ok:'ok'})
   },
-  inject: ['CONFIG'],
+  inject: [ConfigService],
 };
+
+export type DBConnection = ReturnType<Awaited<typeof databaseProvider.useFactory>>;
